@@ -19,10 +19,9 @@ func AllowHandshake(ip string, limit int) (bool, error) {
 func EnsureUpgradeChecks(w http.ResponseWriter, r *http.Request) bool {
 
 	origin := r.Header.Get("Origin")
-	// TODO: Add allowed origins
-	if origin != "http://localhost:8080" && origin != "https://omiro.underthedesk.blog" && origin != "https://flashmeet.tech" {
-		http.Error(w, "Forbidden origin", http.StatusForbidden)
-		return false
+	// Allow all origins for development/testing
+	if origin == "" {
+		// handle local or non-browser requests if needed
 	}
 
 	ip := helper.GetRealIP(r)
